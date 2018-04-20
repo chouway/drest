@@ -3,32 +3,52 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>framework-boot</artifactId>
-        <groupId>com.base</groupId>
-        <version>1.0.0</version>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>2.0.0.M2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.base.drest</groupId>
     <artifactId>framework-drest</artifactId>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>drest-api</module>
         <module>drest-service</module>
+        <module>drest-eureka</module>
     </modules>
+
+    <properties>
+        <spring-starter.version>2.0.0.M2</spring-starter.version>
+        <spring-cloud-starter.version>2.0.0.M2</spring-cloud-starter.version>
+
+        <framework.version>1.0.0</framework.version>
+        <drest.version>1.0.0</drest.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>com.base.drest</groupId>
                 <artifactId>drest-api</artifactId>
-                <version>${framework.version}</version>
+                <version>${drest.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.base.drest</groupId>
                 <artifactId>drest-service</artifactId>
-                <version>${framework.version}</version>
+                <version>${drest.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.base.drest</groupId>
+                <artifactId>drest-eureka</artifactId>
+                <version>${drest.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

@@ -4,6 +4,7 @@ import com.base.drest.domain.ParamInfo;
 import com.base.drest.service.common.vo.ParamInfoCond;
 import com.base.framework.common.exception.BusinessException;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.cloud.openfeign.FeignClient;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @author zhouyw
  * @date 2018.04.18
  */
+@FeignClient
 public interface IParamInfoService {
     /**
      * 字典查询one

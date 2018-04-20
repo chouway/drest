@@ -14,9 +14,11 @@
     <packaging>jar</packaging>
 
     <dependencies>
+
         <dependency>
             <groupId>com.base</groupId>
             <artifactId>framework-api</artifactId>
+            <version>${framework.version}</version>
         </dependency>
     </dependencies>
 </project>
