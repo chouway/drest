@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.drest.service.common.dao.ParamInfoDaoExt">
+
+    <select id="getTree" parameterType="java.util.Map" resultType="com.base.drest.domain.ParamInfo">
+         with RECURSIVE tem_info as(
+            select * FROM t_drest_param_info where type = #{type} and code = #{code}
+              UNION ALL
+            select  a.* FROM t_drest_param_info a INNER JOIN tem_info b ON b.id = a.parent_id
+         )
+         SELECT * FROM tem_info;
+    </select>
+
+
+    <sql id="where_sql_list">
+
+       <where>
+            <if test="cond.type != null">
+                AND a.type  =  #{cond.type}
+
+            </if>
+       </where>
+
+    </sql>
+
+    <select id="getList" parameterType="java.util.Map" resultType="com.base.drest.domain.ParamInfo">
+        SELECT
+            a.*
+        from t_drest_param_info a
+
+          <include refid="where_sql_list"/>
+        ORDER BY a.index DESC
+        <if test="page != null" >
+            <![CDATA[ limit #{page.pageSize} offset (#{page.firstElementOnPage}) ]]>
+        </if>
+    </select>
+
+    <select id="countList" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+          COUNT(1)
+        from t_drest_param_info a
+
+        <include refid="where_sql_list"/>
+
+    </select>
+</mapper>

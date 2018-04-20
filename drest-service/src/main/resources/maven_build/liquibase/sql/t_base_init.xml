@@ -1,0 +1,45 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <preConditions>
+        <dbms type="postgresql"/>
+    </preConditions>
+
+    <changeSet id="init.t_drest.20180418_0" author="ywzhou">
+        <sql>
+            <![CDATA[
+            DROP TABLE IF EXISTS "t_drest_param_info";
+            CREATE TABLE "t_drest_param_info" (
+              "id" varchar(32) COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
+              "code" varchar(64) COLLATE "pg_catalog"."default" DEFAULT NULL,
+              "name" varchar(64) COLLATE "pg_catalog"."default" DEFAULT NULL,
+              "type" varchar(64) COLLATE "pg_catalog"."default" DEFAULT NULL,
+              "parent_id" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL,
+              "remark" varchar(256) COLLATE "pg_catalog"."default" DEFAULT NULL
+            )
+            ;
+            COMMENT ON COLUMN "t_drest_param_info"."code" IS '字典码';
+            COMMENT ON COLUMN "t_drest_param_info"."name" IS '字典名称';
+            COMMENT ON COLUMN "t_drest_param_info"."type" IS '类别';
+            COMMENT ON COLUMN "t_drest_param_info"."remark" IS '备注';
+            COMMENT ON TABLE "t_drest_param_info" IS '字典表';
+
+            -- ----------------------------
+            -- Records of t_drest_param_info
+            -- ----------------------------
+            BEGIN;
+            INSERT INTO "t_drest_param_info" VALUES ('a', 'code_0', 'name_0', 'type', NULL, NULL);
+            INSERT INTO "t_drest_param_info" VALUES ('b', 'code_1', 'name_1', 'type', NULL, NULL);
+            INSERT INTO "t_drest_param_info" VALUES ('a_a', 'code_0', 'name_0', 'sub_type', 'a', NULL);
+            INSERT INTO "t_drest_param_info" VALUES ('a_b', 'code_1', 'name_1', 'sub_type', 'a', NULL);
+            COMMIT;
+            
+        ]]>
+        </sql>
+    </changeSet>
+
+    
+
+</databaseChangeLog>

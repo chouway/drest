@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>framework-drest</artifactId>
+        <groupId>com.base.drest</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>drest-service</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <javaModel.targetProject>../drest-api/src/main/java</javaModel.targetProject>
+        <base-package>com.base.drest</base-package>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.base.drest</groupId>
+            <artifactId>drest-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.base</groupId>
+            <artifactId>framework-boot-starter-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.base</groupId>
+            <artifactId>framework-boot-starter-service</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+
+            <!-- mybatis generator的插件 -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>${mybatis-generator-maven-plugin.version}</version>
+
+                <configuration>
+                    <verbose>true</verbose><!-- 罗列明细-->
+                    <overwrite>true</overwrite><!-- 覆盖已有文件 -->
+                    <configurationFile> <!-- 配置configureFile的路径和名称 -->
+                        ${basedir}/src/main/resources/maven_build/mgb/generatorConfig.xml
+                    </configurationFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>com.base</groupId>
+                        <artifactId>framework-service</artifactId>
+                        <version>${framework.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
+                <configuration>
+                    <changeLogFile>${basedir}/src/main/resources/maven_build/liquibase/master.xml</changeLogFile>
+                    <propertyFile>${basedir}/src/main/resources/maven_build/database.properties</propertyFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

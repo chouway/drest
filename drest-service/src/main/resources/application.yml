@@ -1,0 +1,50 @@
+spring:
+  application:
+
+  profiles:
+    active: local
+
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/drest_admin
+    username: test
+    password: test
+
+  liquibase:
+    change-log: classpath:maven_build/liquibase/master.xml
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    enabled: true
+    drop-first: false
+
+mybatis:
+  mapper-locations: classpath:com/base/${app.param.model.name}/service/**/dao/*DaoExt.xml
+  configuration:
+      mapUnderscoreToCamelCase: true
+
+#自定义参数
+app:
+  param:
+      model:
+          name: drest
+          version: 1.0.0
+
+---
+spring:
+  profiles: local
+
+---
+spring:
+  profiles: dev
+
+---
+spring:
+  profiles: test
+
+---
+spring:
+  profiles: uat
+
+---
+spring:
+  profiles: prd
