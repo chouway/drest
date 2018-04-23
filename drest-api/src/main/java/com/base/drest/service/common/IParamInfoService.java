@@ -3,8 +3,12 @@ package com.base.drest.service.common;
 import com.base.drest.domain.ParamInfo;
 import com.base.drest.service.common.vo.ParamInfoCond;
 import com.base.framework.common.exception.BusinessException;
+import com.netflix.ribbon.proxy.annotation.Http;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -13,7 +17,6 @@ import java.util.List;
  * @author zhouyw
  * @date 2018.04.18
  */
-@FeignClient
 public interface IParamInfoService {
     /**
      * 字典查询one

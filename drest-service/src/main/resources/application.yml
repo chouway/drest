@@ -1,8 +1,15 @@
 spring:
-  application:
-
   profiles:
     active: local
+
+  application:
+    name: drest-service
+
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true #启动服务发现的功能，开启了才能调用其它服务
+#        service-id: ${spring.application.name}  #发现的服务的名字--对应注测中心的服务名字
 
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/drest_admin
@@ -16,6 +23,22 @@ spring:
     password: ${spring.datasource.password}
     enabled: true
     drop-first: false
+
+server:
+  port: 8770
+#  servlet:
+#    context-path: /${spring.application.name}
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+  client:
+    eureka-server-u-r-l-context: http://localhost:8761/eureka #注册中心
+
+
+
+
+
 
 mybatis:
   mapper-locations: classpath:com/base/${app.param.model.name}/service/**/dao/*DaoExt.xml
