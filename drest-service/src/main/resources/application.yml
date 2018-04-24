@@ -24,8 +24,16 @@ spring:
     enabled: true
     drop-first: false
 
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
 server:
   port: 8770
+  tomcat:
+    uri-encoding: UTF-8
 #  servlet:
 #    context-path: /${spring.application.name}
 
