@@ -5,7 +5,6 @@ spring:
   application:
     name: drest-web
 
-
   http:
     encoding:
       force: true
@@ -16,10 +15,11 @@ server:
   port: 8780
   tomcat:
     uri-encoding: UTF-8
-#  servlet:
-#    context-path: /${spring.application.name}
+  servlet:
+    context-path: /${spring.application.name}
 
 
 eureka:
   client:
     eureka-server-u-r-l-context: http://localhost:8761/eureka #注册中心
+
