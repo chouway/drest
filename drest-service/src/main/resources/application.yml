@@ -30,6 +30,7 @@ spring:
       charset: UTF-8
       enabled: true
 
+
 server:
   port: 8770
   tomcat:
@@ -44,6 +45,9 @@ eureka:
 
   client:
     eureka-server-u-r-l-context: http://localhost:8761/eureka #注册中心
+
+
+
 
 mybatis:
   mapper-locations: classpath:com/base/${app.param.model.name}/service/**/dao/*DaoExt.xml
@@ -60,6 +64,11 @@ app:
 ---
 spring:
   profiles: local
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["*"]
 
 ---
 spring:
@@ -76,3 +85,4 @@ spring:
 ---
 spring:
   profiles: prd
+
