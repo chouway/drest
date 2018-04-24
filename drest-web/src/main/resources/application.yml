@@ -5,10 +5,7 @@ spring:
   application:
     name: drest-web
 
-  cloud:
-    config:
-      discovery:
-        service-id: drest-service  #发现的服务的名字--对应注测中心的服务名字
+
   http:
     encoding:
       force: true
