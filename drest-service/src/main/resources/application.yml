@@ -63,6 +63,8 @@ app:
       model:
           name: drest
           version: 1.0.0
+      test:
+          isTestFallBack: false
 
 ---
 spring:

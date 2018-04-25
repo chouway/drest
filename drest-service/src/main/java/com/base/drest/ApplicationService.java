@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import java.util.concurrent.CountDownLatch;
@@ -19,6 +21,8 @@ import java.util.concurrent.CountDownLatch;
 @SpringBootApplication(scanBasePackages = {"com.base.drest"})
 @EnableEurekaClient
 @EnableFeignClients
+@EnableHystrix
+@EnableHystrixDashboard
 public class ApplicationService {
 
     private static Logger logger = LoggerFactory.getLogger(ApplicationService.class);
