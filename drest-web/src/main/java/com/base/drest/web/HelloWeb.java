@@ -3,6 +3,7 @@ package com.base.drest.web;
 import com.alibaba.fastjson.JSON;
 import com.base.drest.domain.ParamInfo;
 import com.base.drest.pub.IHelloAPI;
+import com.base.framework.common.bo.ResultBO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class HelloWeb {
     @Autowired
     private IHelloAPI helloAPI;
 
-    @RequestMapping("/{msg}")
+    @RequestMapping("/msg/{msg}")
     @ResponseBody
     public String helloMsg(@PathVariable("msg") String msg){
         logger.info("hello-->msg={}", msg);
@@ -39,5 +40,24 @@ public class HelloWeb {
 
     }
 
+    @RequestMapping("/msg2/{msg}")
+    @ResponseBody
+    public String helloMsg2(@PathVariable("msg") String msg){
+        logger.info("hello2-->msg={}", msg);
+        ParamInfo paramInfo = helloAPI.getByTypeCodeTestFB();
+        logger.info("-->paramInfo={}", JSON.toJSONString(paramInfo));
+        return  "hello2:" + msg + "; ok";
 
+    }
+
+
+    @RequestMapping("/msg3/{msg}")
+    @ResponseBody
+    public ResultBO helloMsg3(@PathVariable("msg") String msg){
+        logger.info("hello2-->msg={}", msg);
+        ResultBO resultBO = helloAPI.getByTypeCodeDef();
+        logger.info("-->resultBO={}", JSON.toJSONString(resultBO));
+        return  resultBO;
+
+    }
 }
