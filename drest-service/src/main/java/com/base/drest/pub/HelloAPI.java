@@ -1,20 +1,15 @@
 package com.base.drest.pub;
 
-import com.alibaba.fastjson.JSON;
 import com.base.drest.domain.ParamInfo;
 import com.base.drest.service.common.IParamInfoService;
 import com.base.framework.common.bo.ResultBO;
 import com.base.framework.common.exception.BusinessException;
 import com.base.framework.service.common.BaseService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -35,7 +30,7 @@ public class HelloAPI extends BaseService implements IHelloAPI {
     private boolean isTestFB;
 
     @Override
-    @HystrixCommand(defaultFallback /*fallbackMethod*/ = "getByTypeCodeFallback")
+    @HystrixCommand(defaultFallback = defaultFallback)
     public ParamInfo getByTypeCode(String type, String code) throws BusinessException {
         logger.info("-->serverPort={}", serverPort);
         if(isTestFB){//在这模拟 调用其它服务失败； 当失败异常过多后，降级处理
@@ -68,14 +63,15 @@ public class HelloAPI extends BaseService implements IHelloAPI {
     }
 
     private AtomicInteger atomicInteger = new AtomicInteger();
+
     @Override
-    @HystrixCommand(defaultFallback = defaultFallback,ignoreExceptions = BusinessException.class)
+    @HystrixCommand(defaultFallback = defaultFallback)
     public ResultBO getByTypeCodeDef()throws BusinessException{
         ResultBO resultBO = new ResultBO();
-        logger.info("-->getByTypeCodeTestFB");
+        logger.info("-->getByTypeCodeDef");
         if(isTestFB){
             atomicInteger.getAndAdd(1);
-            String msg = "getByTypeCodeTestFB暂时失败下，测试fallback";
+            String msg = "getByTypeCodeDef暂时失败下，测试fallback";
             logger.error("count={},error:-->msg={}",atomicInteger.get(), msg);
             throw new BusinessException(msg);
         }
@@ -83,6 +79,5 @@ public class HelloAPI extends BaseService implements IHelloAPI {
         return resultBO;
 
     }
-
 
 }
