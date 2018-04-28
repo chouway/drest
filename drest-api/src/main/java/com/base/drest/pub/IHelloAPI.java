@@ -35,7 +35,7 @@ public interface IHelloAPI{
      */
     @RequestMapping(value = "/hello/getByTypeCodeDef")
     @ResponseBody
-    ResultBO<ParamInfo> getByTypeCodeDef()throws BusinessException;
+    ResultBO<ParamInfo> getByTypeCodeDef(@RequestParam("isErr")boolean isErr)throws BusinessException;
 
 
 }

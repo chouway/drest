@@ -66,10 +66,10 @@ public class HelloAPI extends BaseService implements IHelloAPI {
 
     @Override
     @HystrixCommand(defaultFallback = defaultFallback)
-    public ResultBO getByTypeCodeDef()throws BusinessException{
+    public ResultBO getByTypeCodeDef(boolean isErr)throws BusinessException{
         ResultBO resultBO = new ResultBO();
         logger.info("-->getByTypeCodeDef");
-        if(isTestFB){
+        if(isErr){
             atomicInteger.getAndAdd(1);
             String msg = "getByTypeCodeDef暂时失败下，测试fallback";
             logger.error("count={},error:-->msg={}",atomicInteger.get(), msg);

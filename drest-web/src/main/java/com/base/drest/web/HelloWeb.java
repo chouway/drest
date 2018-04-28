@@ -50,14 +50,18 @@ public class HelloWeb {
 
     }
 
-
+    /**
+     * nginx 当某个请求可能出现大并发的请求 ，导致服务繁忙异常。 加上服务繁忙验证码处理 规避机器刷屏
+     * @param msg
+     * @param isErr
+     * @return
+     */
     @RequestMapping("/msg3/{msg}")
     @ResponseBody
-    public ResultBO helloMsg3(@PathVariable("msg") String msg){
+    public ResultBO helloMsg3(@PathVariable("msg") String msg,boolean isErr){
         logger.info("hello2-->msg={}", msg);
-        ResultBO resultBO = helloAPI.getByTypeCodeDef();
+        ResultBO resultBO = helloAPI.getByTypeCodeDef(isErr);
         logger.info("-->resultBO={}", JSON.toJSONString(resultBO));
         return  resultBO;
-
     }
 }
