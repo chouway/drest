@@ -27,5 +27,5 @@ eureka:
     health-check-url-path: /${spring.application.name}/actuator/health
 
   client:
-    eureka-server-u-r-l-context: http://localhost:8761/drest-eureka #注册中心
+    eureka-server-u-r-l-context: http://localhost:8761 #注册中心
 

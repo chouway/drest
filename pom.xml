@@ -19,6 +19,8 @@
         <module>drest-service</module>
         <module>drest-eureka</module>
         <module>drest-web</module>
+        <module>drest-dashboard</module>
+        <module>drest-turbine</module>
     </modules>
 
     <properties>

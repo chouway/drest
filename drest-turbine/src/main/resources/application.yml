@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: drest-turbine
+
+#端口号
+server:
+  port: 8741
+
+eureka:
+  instance:
+    appname:  ${spring.application.name}
+    metadata-map:
+          cluster: ${spring.application.name}
+
+  client:
+    eureka-server-u-r-l-context: http://localhost:8761
+
+turbine:
+  app-config: drest-service    ##需要监控的服务名
+  aggregator:
+    clusterConfig: default    ##需要监控的服务集群名
+  clusterNameExpression: new String("default")
+  combine-host: true
+  instanceUrlSuffix:
+    default: /drest-service/actuator/hystrix.stream    ##key是clusterConfig集群的名字，value是hystrix监控的后缀，springboot2.0为actuator/hystrix.stream
+

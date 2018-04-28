@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: drest-dashboard
+
+#端口号
+server:
+  port: 8751
+
+
