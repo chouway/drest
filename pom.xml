@@ -21,6 +21,7 @@
         <module>drest-web</module>
         <module>drest-dashboard</module>
         <module>drest-turbine</module>
+        <module>drest-gateway</module>
     </modules>
 
     <properties>

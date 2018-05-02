@@ -1,0 +1,30 @@
+server:
+  port: 8731
+  http2:
+    enabled: true
+
+spring:
+  application:
+    name: drest-gateway
+  cloud:
+    gateway:
+      default-filters:
+      routes:
+        #------------------------------------------------------------------------
+         - id: drest-service-route
+           uri: lb://drest-service
+           predicates:
+           - Path= /drest-service/**
+
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    home-page-url-path:    /actuator/health
+    status-page-url-path:  /actuator/info
+    health-check-url-path: /actuator/health
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    eureka-server-u-r-l-context: http://localhost:8761 #注册中心
+
