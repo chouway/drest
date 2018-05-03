@@ -22,6 +22,7 @@
         <module>drest-dashboard</module>
         <module>drest-turbine</module>
         <module>drest-gateway</module>
+        <module>drest-sleuth</module>
     </modules>
 
     <properties>
