@@ -6,6 +6,7 @@ import com.base.framework.common.bo.ResultBO;
 import com.base.framework.common.exception.BusinessException;
 import com.base.framework.service.common.BaseService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,7 +78,6 @@ public class HelloAPI extends BaseService implements IHelloAPI {
         }
         resultBO.setSuccess(true);
         return resultBO;
-
     }
 
 }
