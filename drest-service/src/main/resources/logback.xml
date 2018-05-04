@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <springProperty scope="context" name="LOG_FILE" source="app.param.logFile"/>
+    <property  name="LOG_FILE_MAX_HISTORY" value="30"/>
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <logger name="liquibase" level="INFO"/>
     <logger name="com.base.drest" level="TRACE"/>
