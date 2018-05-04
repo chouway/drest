@@ -2,14 +2,17 @@ spring:
   profiles:
     active: local
 
-  zipkin:
-    base-url: http://localhost:9411 #日志追踪上送的服务器地址 Zipkin Server
-  sleuth:
-      sampler:
-          probability: 0.1F   # 10%的概率将链路的数据上传给Zipkin Server，在默认的情况下，该值为0.1
-
   application:
     name: drest-service
+
+  zipkin:
+      base-url: http://localhost:9411 #日志追踪上送的服务器地址 Zipkin Server
+      service:
+        name: ${spring.application.name}_${server.port}
+  sleuth:
+        sampler:
+            probability: 0.1F   # 10%的概率将链路的数据上传给Zipkin Server，在默认的情况下，该值为0.1
+
 
 #  cloud:
 #    config:
