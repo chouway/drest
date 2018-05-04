@@ -70,8 +70,8 @@ app:
       model:
           name: drest
           version: 1.0.0
-      #日志  /data/log/模块名称/应用名称_端口.log
-      logFile: /data/log/drest/${app.param.model.name}/${spring.application.name}_${server.port}.log
+      #日志  /data/log/模块名称/应用名称/应用名称_端口.log
+      logFile: /data/log/drest/${app.param.model.name}/${spring.application.name}/${spring.application.name}_${server.port}.log
 
       #测试回退
       test:
