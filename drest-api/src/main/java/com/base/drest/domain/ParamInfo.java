@@ -1,13 +1,10 @@
 package com.base.drest.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import javax.persistence.*;
 
 @Table(name = "t_drest_param_info")
 public class ParamInfo implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
     @Column(name = "id")
     private String id;
 
@@ -37,6 +34,8 @@ public class ParamInfo implements Serializable {
      */
     @Column(name = "remark")
     private String remark;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @return id

@@ -1,9 +1,9 @@
 目标package: maven_build.mgb.table
 
 当前时间：
-2018-4-20
-9:54:18
-2018-04-20 09:54:18
+2018-5-14
+17:42:22
+2018-05-14 17:42:22
 
 所有配置的属性信息:
 targetPackage - maven_build.mgb.table

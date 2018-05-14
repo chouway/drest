@@ -33,6 +33,7 @@
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <property name="javaFileEncoding" value="UTF-8"/>
         <property name="useMapperCommentGenerator" value="true"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
 
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
@@ -61,6 +62,7 @@
             <property name="templatePath" value="generator/test-one.ftl"/>
             <property name="fileName" value="${tableClass.shortClassName}.txt"/>
         </plugin>
+
 
 
         <jdbcConnection driverClass="${driver}"
