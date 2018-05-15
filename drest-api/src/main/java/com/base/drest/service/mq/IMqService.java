@@ -8,4 +8,6 @@ package com.base.drest.service.mq;
 public interface IMqService {
 
     void send(String key,Object content);
+
+    void sendTopic(String key,Object content);
 }

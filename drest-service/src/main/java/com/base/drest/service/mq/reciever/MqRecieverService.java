@@ -21,17 +21,19 @@ public class MqRecieverService{
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @RabbitHandler
-    @RabbitListener(queues = MqConstant.MQ_TEST_0)
+    @RabbitListener(queues = MqConstant.DIRECT_QUEUE_A)
     public void process0(String mqMsg) {
-        logger.info("MQ_TEST_0-->mqMsg={}", mqMsg);
+        logger.info("DIRECT_QUEUE_0-->mqMsg={}", mqMsg);
 
     }
 
 
     @RabbitHandler
-    @RabbitListener(queues = MqConstant.MQ_TEST_1)
-    public void process1(@Payload ParamInfo paramInfo) {
-        logger.info("MQ_TEST_1-->paramInfo={}", JSON.toJSONString(paramInfo));
-
+    @RabbitListener(queues = MqConstant.DIRECT_QUEUE_B)
+    public void process1(ParamInfo paramInfo) {
+        /*if(true){//消费端出错，消息队列会重新推送，这导致10秒内一直重复。
+            throw new RuntimeException("测试处理失败");
+        }*/
+        logger.info("DIRECT_QUEUE_1-->paramInfo={}", JSON.toJSONString(paramInfo));
     }
 }

@@ -20,10 +20,20 @@ public class MqServiceTest extends CommonTest{
 
     @Test
     public void send() throws InterruptedException {
-//        mqService.send(MqConstant.MQ_TEST_0,"test_0");
+//      mqService.send(MqConstant.DIRECT_QUEUE_A,"test_0");
         ParamInfo paramInfo = new ParamInfo();
         paramInfo.setCode("test_code");
-        mqService.send(MqConstant.MQ_TEST_1,paramInfo);
+        mqService.send(MqConstant.DIRECT_QUEUE_A,paramInfo);
+        logger.info("sleep-->start");
+        Thread.sleep(10*1000l);
+        logger.info("sleep-->end");
+    }
+
+    @Test
+    public void sendTopic() throws InterruptedException {
+        ParamInfo paramInfo = new ParamInfo();
+        paramInfo.setCode("test_code_0");
+        mqService.sendTopic(MqConstant.TOPIC_QUEUE + ".a",paramInfo);
         logger.info("sleep-->start");
         Thread.sleep(10*1000l);
         logger.info("sleep-->end");

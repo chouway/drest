@@ -7,7 +7,13 @@ package com.base.drest.service.mq.cont;
  */
 public interface MqConstant {
 
-    String MQ_TEST_0 = "MQ_TEST_0";
+    String DIRECT_QUEUE_A = "direct.queue.a";
 
-    String MQ_TEST_1 = "MQ_TEST_1";
+    String DIRECT_QUEUE_B = "direct.queue.b";
+
+
+    String TOPIC_QUEUE = "topic.queue";
+
+
+    String topicExchange = "topicExchange";
 }
