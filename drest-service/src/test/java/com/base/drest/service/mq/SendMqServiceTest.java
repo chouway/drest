@@ -17,11 +17,11 @@ public class SendMqServiceTest extends CommonTest{
     private ISendMqService sendMqService;
 
     @Test
-    public void send() throws InterruptedException {
+    public void sendDirect() throws InterruptedException {
 //      mqService.sendDirect(MqConstant.QUEUE_DIRECT_A,"test_0");
         ParamInfo paramInfo = new ParamInfo();
         paramInfo.setCode("test_code");
-        sendMqService.sendDirect(MqConstant.QUEUE_DIRECT_A,paramInfo);
+        sendMqService.sendDirect(MqConstant.QUEUE_DIRECT_B,paramInfo);
         logger.info("sleep-->start");
         Thread.sleep(10*1000l);
         logger.info("sleep-->end");

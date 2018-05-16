@@ -30,9 +30,9 @@ public class DirectMqRecieverService {
     @RabbitHandler
     @RabbitListener(queues = MqConstant.QUEUE_DIRECT_B)
     public void receiveB(ParamInfo paramInfo) {
-        /*if(true){//消费端出错，消息队列会重新推送，这导致10秒内一直重复。
+        if(true){//消费端出错，消息队列会重新推送，这导致10秒内一直重复。
             throw new RuntimeException("测试处理失败");
-        }*/
+        }
         logger.info("DIRECT_QUEUE_1-->paramInfo={}", JSON.toJSONString(paramInfo));
     }
 }

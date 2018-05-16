@@ -18,7 +18,6 @@ public class SendMqService implements ISendMqService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-
     @Autowired
     private AmqpTemplate amqpTemplate;
 

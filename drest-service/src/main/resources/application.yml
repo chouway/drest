@@ -10,6 +10,11 @@ spring:
     port: 5672
     username: admin
     password: admin
+    ##是否 启用消息确认模式 默认false 即事务模式
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
 
 
   zipkin:
