@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,21 +15,21 @@ import org.springframework.stereotype.Component;
  * @date 2018.05.14
  */
 @Component
-public class MqRecieverService{
+public class DirectMqRecieverService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @RabbitHandler
-    @RabbitListener(queues = MqConstant.DIRECT_QUEUE_A)
-    public void process0(String mqMsg) {
+    @RabbitListener(queues = MqConstant.QUEUE_DIRECT_A)
+    public void receiveA(String mqMsg) {
         logger.info("DIRECT_QUEUE_0-->mqMsg={}", mqMsg);
 
     }
 
 
     @RabbitHandler
-    @RabbitListener(queues = MqConstant.DIRECT_QUEUE_B)
-    public void process1(ParamInfo paramInfo) {
+    @RabbitListener(queues = MqConstant.QUEUE_DIRECT_B)
+    public void receiveB(ParamInfo paramInfo) {
         /*if(true){//消费端出错，消息队列会重新推送，这导致10秒内一直重复。
             throw new RuntimeException("测试处理失败");
         }*/
