@@ -22,7 +22,7 @@ public class DirectMqRecieverService {
     @RabbitHandler
     @RabbitListener(queues = MqConstant.QUEUE_DIRECT_A)
     public void receiveA(String mqMsg) {
-        logger.info("DIRECT_QUEUE_0-->mqMsg={}", mqMsg);
+        logger.info("receiveA-->queue={},mqMsg={}",MqConstant.QUEUE_DIRECT_A,mqMsg);
 
     }
 
@@ -33,6 +33,12 @@ public class DirectMqRecieverService {
         if(true){//消费端出错，消息队列会重新推送，这导致10秒内一直重复。
             throw new RuntimeException("测试处理失败");
         }
-        logger.info("DIRECT_QUEUE_1-->paramInfo={}", JSON.toJSONString(paramInfo));
+        logger.info("receiveB-->queue={},paramInfo={}",MqConstant.QUEUE_DIRECT_B, JSON.toJSONString(paramInfo));
+    }
+
+    @RabbitHandler
+    @RabbitListener(queues = MqConstant.QUEUE_DIRECT_DELAY_A,errorHandler = "mqErrorHandler")
+    public void receiveDelayA(ParamInfo paramInfo) {//增加异常的处理 errorHandler
+        logger.info("receiveDelayA-->queue={},paramInfo={}", MqConstant.QUEUE_DIRECT_DELAY_A, JSON.toJSONString(paramInfo));
     }
 }

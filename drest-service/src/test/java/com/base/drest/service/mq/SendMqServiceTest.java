@@ -3,6 +3,7 @@ package com.base.drest.service.mq;
 import com.base.drest.CommonTest;
 import com.base.drest.domain.ParamInfo;
 import com.base.drest.service.mq.cont.MqConstant;
+import com.base.drest.service.mq.cont.MsgSetting;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,6 +46,19 @@ public class SendMqServiceTest extends CommonTest{
         sendMqService.sendTopic(MqConstant.EXCHANGE_FANOUT,null,paramInfo);
         logger.info("sleep-->start");
         Thread.sleep(10*1000l);
+        logger.info("sleep-->end");
+    }
+
+    @Test
+    public void sendDirectDelay() throws InterruptedException {
+        ParamInfo paramInfo = new ParamInfo();
+        paramInfo.setCode("test_code_delay");
+        long delay = 10*1000l;//延迟10秒处理
+        MsgSetting msgSetting = new MsgSetting();
+        msgSetting.setExpiration(delay);
+        sendMqService.sendMsg(MqConstant.EXCHANGE_DERICT_DELAY,MqConstant.QUEUE_DIRECT_DELAY_A_DEAD,paramInfo,msgSetting);
+        logger.info("sleep-->start");
+        Thread.sleep(20*1000l);
         logger.info("sleep-->end");
     }
 }

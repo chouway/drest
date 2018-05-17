@@ -2,9 +2,14 @@ package com.base.drest.service.mq;
 
 import com.alibaba.fastjson.JSON;
 import com.base.drest.service.mq.cont.MqConstant;
+import com.base.drest.service.mq.cont.MsgSetting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +44,25 @@ public class SendMqService implements ISendMqService {
         amqpTemplate.convertAndSend(exchange, message);
     }
 
+    @Override
+    public void sendMsg(String exchangeName,String routingKey, Object message,final MsgSetting msgSetting) {
+        logger.info("sendMsg-->exchangeName={},routingKey={},message={},msgSetting={}", exchangeName,routingKey,JSON.toJSONString(message),JSON.toJSONString(msgSetting));
+        if(msgSetting == null){
+            amqpTemplate.convertAndSend(exchangeName,routingKey, message);
+            return;
+        }
+
+        MessagePostProcessor processor = new MessagePostProcessor(){
+            @Override
+            public Message postProcessMessage(Message message) throws AmqpException {
+                if(msgSetting!=null){
+                    MessageProperties messageProperties = message.getMessageProperties();
+                    messageProperties.setExpiration(msgSetting.getExpiration() + "");
+                }
+                return message;
+            }
+        };
+        amqpTemplate.convertAndSend(exchangeName,routingKey, message,processor);
+    }
 
 }

@@ -10,6 +10,12 @@ public interface MqConstant {
     String QUEUE_DIRECT_A = "direct.queue.a";
 
     String QUEUE_DIRECT_B = "direct.queue.b";
+
+    String QUEUE_DIRECT_DELAY_A = "direct.delay.queue.a";
+
+    String QUEUE_DIRECT_DELAY_A_DEAD = QUEUE_DIRECT_DELAY_A + ".dead";
+
+    String EXCHANGE_DERICT_DELAY = "directExchangeDelay";
     /*DIRECT 模式END*/
 
     /*TOPIC 模式STR*/
@@ -22,6 +28,7 @@ public interface MqConstant {
 
     //模拟其它应用也订阅了该主题
     String QUEUE_TOPIC_APP = "topic.queue.app";
+
     /*TOPIC 模式END*/
 
     /*FANOUT 模式STR*/

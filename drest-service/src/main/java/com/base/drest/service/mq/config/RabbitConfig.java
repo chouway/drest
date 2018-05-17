@@ -5,6 +5,9 @@ import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * RabbitConfig
  * @author zhouyw
@@ -21,6 +24,33 @@ public class RabbitConfig {
     @Bean
     public Queue directQueueB() {
         return new Queue(MqConstant.QUEUE_DIRECT_B);
+    }
+
+    @Bean
+    public Queue directQueueDelayA() {
+        return new Queue(MqConstant.QUEUE_DIRECT_DELAY_A);
+    }
+
+    @Bean
+    public Queue directQueueDelayADead() {
+        Map<String,Object> arguments = new HashMap<String, Object>();
+        arguments.put("x-dead-letter-exchange", MqConstant.EXCHANGE_DERICT_DELAY);
+        arguments.put("x-dead-letter-routing-key", MqConstant.QUEUE_DIRECT_DELAY_A);
+        return new Queue(MqConstant.QUEUE_DIRECT_DELAY_A_DEAD,true,false,false,arguments);
+    }
+
+    @Bean
+    public DirectExchange directExchangeDelay() {
+        return new DirectExchange(MqConstant.EXCHANGE_DERICT_DELAY);
+    }
+
+    @Bean
+    public Binding bindingDirectExchangeMessage(Queue directQueueDelayA, DirectExchange directExchangeDelay) {
+        return BindingBuilder.bind(directQueueDelayA).to(directExchangeDelay).with(MqConstant.QUEUE_DIRECT_DELAY_A);
+    }
+    @Bean
+    public Binding bindingDirectExchangeMessage2(Queue directQueueDelayADead, DirectExchange directExchangeDelay) {
+        return BindingBuilder.bind(directQueueDelayADead).to(directExchangeDelay).with(MqConstant.QUEUE_DIRECT_DELAY_A_DEAD);
     }
     /*DIRECT 模式 END*/
 
