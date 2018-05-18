@@ -70,6 +70,24 @@ public class SendMqServiceTest extends CommonTest{
     }
 
     @Test
+    public void sendDirectDelayObject() throws InterruptedException {
+        MsgInfo<ParamInfo> msgInfo = new MsgInfo<ParamInfo>();
+
+        ParamInfo paramInfo = new ParamInfo();
+        paramInfo.setCode("test_code_delay");
+        msgInfo.setMessage(paramInfo);
+        msgInfo.setNextRoutingKey(MqConstant.QUEUE_DIRECT_B);
+
+        long delay = 10*1000l;//延迟10秒处理
+        MsgSetting msgSetting = new MsgSetting();
+        msgSetting.setExpiration(delay);
+        sendMqService.sendMsg(MqConstant.EXCHANGE_DERICT_REPEAT,MqConstant.QUEUE_DIRECT_REPEAT_DEAD,msgInfo,msgSetting);
+        logger.info("sleep-->start");
+        Thread.sleep(20*1000l);
+        logger.info("sleep-->end");
+    }
+
+    @Test
     public void testSendDirectAndMsg() throws InterruptedException {
         String msg = "testSendDirectAndMsg";
         sendMqService.sendDirect(MqConstant.QUEUE_DIRECT_A,msg);
