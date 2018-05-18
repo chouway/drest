@@ -2,11 +2,16 @@ package com.base.drest.service.mq.reciever;
 
 import com.alibaba.fastjson.JSON;
 import com.base.drest.domain.ParamInfo;
+import com.base.drest.service.mq.IRabbitSendMqService;
+import com.base.drest.service.mq.ISendMqService;
 import com.base.drest.service.mq.cont.MqConstant;
+import com.base.drest.service.mq.cont.MsgInfo;
+import com.base.drest.service.mq.cont.MsgSetting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +23,9 @@ import org.springframework.stereotype.Component;
 public class DirectMqRecieverService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private IRabbitSendMqService rabbitSendMqService;
 
     @RabbitHandler
     @RabbitListener(queues = MqConstant.QUEUE_DIRECT_A)
@@ -37,8 +45,13 @@ public class DirectMqRecieverService {
     }
 
     @RabbitHandler
-    @RabbitListener(queues = MqConstant.QUEUE_DIRECT_DELAY_A,errorHandler = "mqErrorHandler")
-    public void receiveDelayA(ParamInfo paramInfo) {//增加异常的处理 errorHandler
-        logger.info("receiveDelayA-->queue={},paramInfo={}", MqConstant.QUEUE_DIRECT_DELAY_A, JSON.toJSONString(paramInfo));
+    @RabbitListener(queues = MqConstant.QUEUE_DIRECT_REPEAT,errorHandler = "mqErrorHandler")
+    public void receiveRepeat(MsgInfo msgInfo) {//增加异常的处理 errorHandler
+        logger.info("receiveRepeat-->queue={},msgInfo={}", MqConstant.QUEUE_DIRECT_REPEAT, JSON.toJSONString(msgInfo));
+        String nextExchange = msgInfo.getNextExchange();
+        String nextRoutingKey = msgInfo.getNextRoutingKey();
+        Object message = msgInfo.getMessage();
+        MsgSetting nextMsgSetting = msgInfo.getNextMsgSetting();
+        rabbitSendMqService.sendMsg(nextExchange,nextRoutingKey,message,nextMsgSetting);
     }
 }

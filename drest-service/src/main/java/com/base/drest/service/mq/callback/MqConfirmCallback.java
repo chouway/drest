@@ -25,6 +25,9 @@ public class MqConfirmCallback implements RabbitTemplate.ConfirmCallback {
      */
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
+        if(correlationData == null || correlationData.getId() == null){
+            return;
+        }
         logger.info("confirm-->correlationData={},ack={},cause={}", JSON.toJSONString(correlationData),ack,cause);
     }
 }

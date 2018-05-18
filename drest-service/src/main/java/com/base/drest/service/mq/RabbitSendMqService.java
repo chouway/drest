@@ -3,9 +3,14 @@ package com.base.drest.service.mq;
 import com.alibaba.fastjson.JSON;
 import com.base.drest.service.mq.callback.MqConfirmCallback;
 import com.base.drest.service.mq.callback.MqReturnCallback;
+import com.base.drest.service.mq.cont.MsgSetting;
 import com.base.framework.core.util.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +70,31 @@ public class RabbitSendMqService implements IRabbitSendMqService {
         logger.info("rabbit sendFanout-->msgId={},exchange={},message={}", msgId, exchange, JSON.toJSONString(message));
         CorrelationData correlationData = new CorrelationData(msgId);
         rabbitTemplat.convertAndSend(exchange,message,correlationData);
+        return msgId;
+    }
+
+    @Override
+    public String sendMsg(String exchange, String routingKey, Object message, MsgSetting msgSetting) {
+        String msgId = UUIDUtils.generate();
+        logger.info("sendMsg-->msgId={},exchange={},routingKey={},message={},msgSetting={}", msgId,exchange,routingKey,JSON.toJSONString(message),JSON.toJSONString(msgSetting));
+        CorrelationData correlationData = new CorrelationData(msgId);
+        rabbitTemplat.convertAndSend(exchange,message,correlationData);
+        if(msgSetting == null){
+            rabbitTemplat.convertAndSend(exchange,routingKey, message);
+            return msgId;
+        }
+
+        MessagePostProcessor processor = new MessagePostProcessor(){
+            @Override
+            public Message postProcessMessage(Message message) throws AmqpException {
+                if(msgSetting!=null){
+                    MessageProperties messageProperties = message.getMessageProperties();
+                    messageProperties.setExpiration(msgSetting.getExpiration() + "");
+                }
+                return message;
+            }
+        };
+        rabbitTemplat.convertAndSend(exchange,routingKey, message,processor);
         return msgId;
     }
 }

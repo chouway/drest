@@ -1,8 +1,10 @@
 package com.base.drest.service.mq;
 
+import com.alibaba.fastjson.JSON;
 import com.base.drest.CommonTest;
 import com.base.drest.domain.ParamInfo;
 import com.base.drest.service.mq.cont.MqConstant;
+import com.base.drest.service.mq.cont.MsgInfo;
 import com.base.drest.service.mq.cont.MsgSetting;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +53,32 @@ public class SendMqServiceTest extends CommonTest{
 
     @Test
     public void sendDirectDelay() throws InterruptedException {
+        MsgInfo msgInfo = new MsgInfo();
+
         ParamInfo paramInfo = new ParamInfo();
         paramInfo.setCode("test_code_delay");
+        msgInfo.setMessage(JSON.toJSONString(paramInfo));
+        msgInfo.setNextRoutingKey(MqConstant.QUEUE_DIRECT_A);
+
         long delay = 10*1000l;//延迟10秒处理
         MsgSetting msgSetting = new MsgSetting();
         msgSetting.setExpiration(delay);
-        sendMqService.sendMsg(MqConstant.EXCHANGE_DERICT_DELAY,MqConstant.QUEUE_DIRECT_DELAY_A_DEAD,paramInfo,msgSetting);
+        sendMqService.sendMsg(MqConstant.EXCHANGE_DERICT_REPEAT,MqConstant.QUEUE_DIRECT_REPEAT_DEAD,msgInfo,msgSetting);
         logger.info("sleep-->start");
         Thread.sleep(20*1000l);
         logger.info("sleep-->end");
+    }
+
+    @Test
+    public void testSendDirectAndMsg() throws InterruptedException {
+        String msg = "testSendDirectAndMsg";
+        sendMqService.sendDirect(MqConstant.QUEUE_DIRECT_A,msg);
+        logger.info("sleep-->start");
+        Thread.sleep(10*1000l);
+        logger.info("sleep-->end");
+        sendMqService.sendMsg(null,MqConstant.QUEUE_DIRECT_A,msg,null);
+        logger.info("sleep2-->start");
+        Thread.sleep(10*1000l);
+        logger.info("sleep2-->end");
     }
 }

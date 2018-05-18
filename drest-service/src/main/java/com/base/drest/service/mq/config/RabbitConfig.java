@@ -27,30 +27,30 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Queue directQueueDelayA() {
-        return new Queue(MqConstant.QUEUE_DIRECT_DELAY_A);
+    public Queue directQueueRepeat() {
+        return new Queue(MqConstant.QUEUE_DIRECT_REPEAT);
     }
 
     @Bean
-    public Queue directQueueDelayADead() {
+    public Queue directQueueRepeatDead() {
         Map<String,Object> arguments = new HashMap<String, Object>();
-        arguments.put("x-dead-letter-exchange", MqConstant.EXCHANGE_DERICT_DELAY);
-        arguments.put("x-dead-letter-routing-key", MqConstant.QUEUE_DIRECT_DELAY_A);
-        return new Queue(MqConstant.QUEUE_DIRECT_DELAY_A_DEAD,true,false,false,arguments);
+        arguments.put("x-dead-letter-exchange", MqConstant.EXCHANGE_DERICT_REPEAT);
+        arguments.put("x-dead-letter-routing-key", MqConstant.QUEUE_DIRECT_REPEAT);
+        return new Queue(MqConstant.QUEUE_DIRECT_REPEAT_DEAD,true,false,false,arguments);
     }
 
     @Bean
-    public DirectExchange directExchangeDelay() {
-        return new DirectExchange(MqConstant.EXCHANGE_DERICT_DELAY);
+    public DirectExchange directExchangeRepeat() {
+        return new DirectExchange(MqConstant.EXCHANGE_DERICT_REPEAT);
     }
 
     @Bean
-    public Binding bindingDirectExchangeMessage(Queue directQueueDelayA, DirectExchange directExchangeDelay) {
-        return BindingBuilder.bind(directQueueDelayA).to(directExchangeDelay).with(MqConstant.QUEUE_DIRECT_DELAY_A);
+    public Binding binding_directQueueRepeat_directExchangeDelay(Queue directQueueRepeat, DirectExchange directExchangeRepeat) {
+        return BindingBuilder.bind(directQueueRepeat).to(directExchangeRepeat).with(directQueueRepeat.getName());
     }
     @Bean
-    public Binding bindingDirectExchangeMessage2(Queue directQueueDelayADead, DirectExchange directExchangeDelay) {
-        return BindingBuilder.bind(directQueueDelayADead).to(directExchangeDelay).with(MqConstant.QUEUE_DIRECT_DELAY_A_DEAD);
+    public Binding binding_directQueueRepeatDead_directExchangeDelay(Queue directQueueRepeatDead, DirectExchange directExchangeRepeat) {
+        return BindingBuilder.bind(directQueueRepeatDead).to(directExchangeRepeat).with(directQueueRepeatDead.getName());
     }
     /*DIRECT 模式 END*/
 
@@ -72,13 +72,13 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Binding bindingTopicExchangeMessage(Queue topicQueue, TopicExchange topicExchange) {
+    public Binding binding_topicQueue_topicExchange(Queue topicQueue, TopicExchange topicExchange) {
         return BindingBuilder.bind(topicQueue).to(topicExchange).with(MqConstant.ROUTING_TOPIC_KEY);
     }
 
 
     @Bean
-    public Binding bindingTopicExchangeMessage2(Queue topicQueueApp, TopicExchange topicExchange) {
+    public Binding binding_topicQueueApp_topicExchange(Queue topicQueueApp, TopicExchange topicExchange) {
         return BindingBuilder.bind(topicQueueApp).to(topicExchange).with(MqConstant.ROUTING_TOPIC_KEY);
     }
     /*TOPIC 模式 END*/
@@ -99,12 +99,12 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Binding bindingFanoutExchangeMessage(Queue fanoutQueue, FanoutExchange fanoutExchange) {
+    public Binding binding_fanoutQueue_fanoutExchange(Queue fanoutQueue, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(fanoutQueue).to(fanoutExchange);
     }
 
     @Bean
-    public Binding bindingFanoutExchangeMessage2(Queue fanoutQueueApp, FanoutExchange fanoutExchange) {
+    public Binding binding_fanoutQueueApp_fanoutExchange(Queue fanoutQueueApp, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(fanoutQueueApp).to(fanoutExchange);
     }
     /*FANOUT 模式 END*/

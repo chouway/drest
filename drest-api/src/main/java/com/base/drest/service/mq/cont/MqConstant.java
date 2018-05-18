@@ -11,11 +11,14 @@ public interface MqConstant {
 
     String QUEUE_DIRECT_B = "direct.queue.b";
 
-    String QUEUE_DIRECT_DELAY_A = "direct.delay.queue.a";
+    //重发队列  （dead队列在过期后，会发至重发队列，再由客户端重发消息队列）
+    String QUEUE_DIRECT_REPEAT = "direct.queue.repeat";
 
-    String QUEUE_DIRECT_DELAY_A_DEAD = QUEUE_DIRECT_DELAY_A + ".dead";
+    //dead队列 （可设置过期时间）
+    String QUEUE_DIRECT_REPEAT_DEAD = QUEUE_DIRECT_REPEAT + ".dead";
 
-    String EXCHANGE_DERICT_DELAY = "directExchangeDelay";
+    //重发信道-direct
+    String EXCHANGE_DERICT_REPEAT = "directExchangeRepeat";
     /*DIRECT 模式END*/
 
     /*TOPIC 模式STR*/
@@ -34,7 +37,6 @@ public interface MqConstant {
     /*FANOUT 模式STR*/
 
     //fanout A的交易机  广播
-
     String QUEUE_FANOUT = "fanout.queue";
 
     String QUEUE_FANOUT_APP = "fanout.queue.app";

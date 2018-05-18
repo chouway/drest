@@ -1,5 +1,7 @@
 package com.base.drest.service.mq;
 
+import com.base.drest.service.mq.cont.MsgSetting;
+
 /**
  * IRabbitSendMqService
  * @author zhouyw
@@ -12,4 +14,6 @@ public interface IRabbitSendMqService {
     String sendTopic(String exchange, String routingKey, Object message);
 
     String sendFanout(String exchange, Object message);
+
+    String sendMsg(String exchange, String routingKey, Object message,final MsgSetting msgSetting);
 }

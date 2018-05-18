@@ -51,7 +51,6 @@ public class SendMqService implements ISendMqService {
             amqpTemplate.convertAndSend(exchangeName,routingKey, message);
             return;
         }
-
         MessagePostProcessor processor = new MessagePostProcessor(){
             @Override
             public Message postProcessMessage(Message message) throws AmqpException {
