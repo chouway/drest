@@ -3,8 +3,10 @@ package com.base.drest.service.common.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
@@ -19,8 +21,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
     @Bean
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
+    public RedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate template = new RedisTemplate();
         template.setConnectionFactory(connectionFactory);
 
         //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
@@ -40,4 +42,6 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
+
+
 }
