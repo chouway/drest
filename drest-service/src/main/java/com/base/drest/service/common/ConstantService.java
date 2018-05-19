@@ -56,7 +56,7 @@ public class ConstantService implements IConstantService {
     }
 
     @Override
-    @CacheEvict(cacheNames = "content",key = KEY)
+    @CacheEvict(cacheNames = CACHE_NAMES,key = KEY)
     public void remove(String key) {
         if(map.containsKey(key)){
             String value =  map.remove(key);
