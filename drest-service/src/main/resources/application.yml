@@ -5,6 +5,13 @@ spring:
   application:
     name: drest-service
 
+  redis:
+    database: 0
+    host: 192.168.1.2
+    port: 6379
+    timeout: 5000
+    password: 123456
+
   rabbitmq:
     host: localhost
     port: 5672
@@ -91,6 +98,8 @@ app:
       #测试回退
       test:
           isTestFallBack: false
+      redis:
+          timeout: 3600  #秒
 
 ---
 spring:
