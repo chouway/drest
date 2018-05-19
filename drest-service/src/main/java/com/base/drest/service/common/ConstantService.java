@@ -25,8 +25,10 @@ public class ConstantService implements IConstantService {
 
     private final String KEY = "#key";
 
+    private final String CACHE_NAMES = "ConstantService";
+
     @Override
-    @Cacheable(value = "content",key = KEY)
+    @Cacheable(cacheNames = CACHE_NAMES,key = KEY)
     public String get(String key) {
         String value = map.get(key);
         logger.info("get-->key={},value={}", key, value);
@@ -34,7 +36,7 @@ public class ConstantService implements IConstantService {
     }
 
     @Override
-    @CachePut(cacheNames = "content",key = KEY)
+    @CachePut(cacheNames = CACHE_NAMES, key = KEY)
     public String add(String key, String value) {
         map.put(key,value);
         logger.info("add-->key={},value={}", key, value);
@@ -42,7 +44,7 @@ public class ConstantService implements IConstantService {
     }
 
     @Override
-    @CachePut(cacheNames = "content",key = KEY)
+    @CachePut(cacheNames = CACHE_NAMES, key = KEY)
     public String edit(String key, String value) {
         if(map.containsKey(key)){
             logger.info("edit-->key={},value={}", key, value);
@@ -60,7 +62,6 @@ public class ConstantService implements IConstantService {
             String value =  map.remove(key);
             logger.info("remove-->key={},value={}", key, value);
             return;
-
         }
     }
 }
