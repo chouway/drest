@@ -23,6 +23,7 @@
         <module>drest-turbine</module>
         <module>drest-gateway</module>
         <module>drest-sleuth</module>
+        <module>drest-oauth</module>
     </modules>
 
     <properties>

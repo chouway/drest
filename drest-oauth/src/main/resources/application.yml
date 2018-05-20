@@ -1,0 +1,12 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: drest-oauth
+
+app:
+  param:
+      #日志  /data/log/模块名称/应用名称/应用名称_端口.log
+      logFile: /data/log/drest/${spring.application.name}/${spring.application.name}_${server.port}.log
+
